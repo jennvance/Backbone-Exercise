@@ -13,7 +13,7 @@ var ChatMessagesView = Backbone.View.extend({
 		var self = this;
 		window.setInterval(function() {
 			self.collection.fetch();
-		});
+		}, 8000);
 	},
 	render: function() {
 		this.$el.html(this.template({messages: this.collection.toJSON()}));
@@ -24,7 +24,8 @@ var ChatMessagesView = Backbone.View.extend({
 var ChatFormView = Backbone.View.extend({
 	//click event for submit button: creates new ChatMessage and adds it to the collection:
 	events: {
-		'click button[type=submit]': 'sendChat'
+		'click button[type=submit]': 'sendChat',
+		'click button[type=button]': 'refreshChats'
 	},
 	initialize: function() {
 		var source = $('#chat-form-template').html();
@@ -38,9 +39,12 @@ var ChatFormView = Backbone.View.extend({
 		e.preventDefault();
 		//.create instead of .add
 		this.collection.create({
-			author: 'Jenn',
+			author: 'testr',
 			text: this.$('input').val(),
-			time: (new Date()).getTime()
-		});
+			time: (new Date()).getTime()/1000});
+	},
+	//fetch new messages on a timer:
+	refreshChats: function(e) {
+		this.collection.fetch();
 	}
 });
