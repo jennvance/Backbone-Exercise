@@ -1,24 +1,23 @@
+//create ChatMessage object that extends Backbone.Model:
 var ChatMessage = Backbone.Model.extend({
-	defaults: {title: 'Unknown',
-	author: '',
+	//URL for JSON REST API:
+	url: 'http://backchat-backend.appspot.com/messages',
+	defaults: {
+		author: 'Unknown',
+		text: ''
 	},
-});
-
-var ChatMessages = Backbone.Collection.extend({
-	model: ChatMessage,
-	comparator: function(model) {
-		return model.get('time');
+	//add getPurified method to ChatMessage that replaces swear words with ****:
+	getPurified: function() {
+		return this.get('text').replace(/shit|damn|crap/, '****');
 	}
 });
-
-function getPurified(){}
-getPurified.prototype.ChatMessage = function(){}
-var pure = new ()
-pure.ChatMessage()
-
-ChatMessages.each(function(book) {
-	console.log(ChatMessages.get('title'));
-})
-
-
-$('body').append(view.render().$el);			
+//create ChatMessages object that extends Backbone.Collection to hold ChatMessage models,
+//and make it sort by 'time' attribute by default
+var ChatMessages = Backbone.Collection.extend({
+	//URL for JSON REST API:
+	url: 'http://backchat-backend.appspot.com/messages',
+	model: ChatMessage,
+	comparator: function(message) {
+		return message.get('time');
+	}
+});
