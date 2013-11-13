@@ -4,7 +4,7 @@ var ChatRouter = Backbone.Router.extend({
 		"room": "room",
 		"user/:id": "profile"
 	},
-	room: function() {
+	room:function() {
 		//create a new ChatMessages collection called chatMessages:
 		var chatMessages = new ChatMessages();
 		//create a new ChatMessagesView and pass the collection into it:
@@ -12,8 +12,8 @@ var ChatRouter = Backbone.Router.extend({
 		var messagesView = new ChatMessagesView({collection: chatMessages, el: $('.chat-messages-wrapper')}).render();
 		//create a new ChatFormView, pass in the chatMessages collection, render the view into the .chat-form-wrapper element
 		var formView = new ChatFormView({collection: chatMessages, el: $('.chat-form-wrapper')}).render();
+	},
+	profile: function(id) {
+		$('.wrapper').append("No profile yet");
 	}
-	// profile: function(id) {
-	// 	$('.wrapper').append("No profile yet");
-	// }
-})
+});
